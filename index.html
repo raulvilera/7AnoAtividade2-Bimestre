@@ -901,6 +901,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data.percentage = (correct / 5) * 100;
 
         showResult(`Enviando respostas... Você acertou ${correct}/5 questões objetivas.`, "success");
+        data.sheetName = "Atividade do 7ºAno";  // aba de destino na planilha
         sendToGoogleSheets(data);
     });
 });
@@ -914,7 +915,7 @@ function showResult(message, type) {
 }
 
 function sendToGoogleSheets(data) {
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbxiSZYXSUveoIPu7j8AI5AZA-lvb6CYUE9_u3PljV00Qbb5LcWZehoo7bYze9hb1Cfk/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbyW3A3yNzdqexP7NLpONPQIuJfpCEvpNKVd7z-9md_29tnY_uMZ1GTqftca5cnWRgn8/exec";
 
     // Apps Script GET com parâmetro "data" em Base64 — contorna CORS completamente
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
