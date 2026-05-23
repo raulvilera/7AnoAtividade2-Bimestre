@@ -79,10 +79,14 @@
 
         /* linha 2: nº chamada | série | data */
         .student-info-row2 {
-            display: grid;
-            grid-template-columns: 80px auto 110px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
             gap: 10px;
         }
+        .student-info-row2 .info-group:nth-child(1) { width: 60px; }
+        .student-info-row2 .info-group:nth-child(2) { width: 110px; }
+        .student-info-row2 .info-group:nth-child(3) { width: 100px; }
 
         .info-group {
             display: flex;
@@ -99,12 +103,12 @@
         }
 
         .info-field {
-            padding: 7px 10px;
+            padding: 6px 8px;
             border: 2px solid rgba(255,255,255,0.8);
             border-radius: 7px;
             background: rgba(255,255,255,0.2);
             color: white;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             width: 100%;
         }
