@@ -861,19 +861,40 @@ function showResult(message, type) {
 }
 
 function sendToGoogleSheets(data) {
-    // Substitua pela URL do seu Apps Script publicado
     const scriptUrl = "https://script.google.com/macros/s/AKfycbyW3A3yNzdqexP7NLpONPQIuJfpCEvpNKVd7z-9md_29tnY_uMZ1GTqftca5cnWRgn8/exec";
-    fetch(scriptUrl, {
-        method: "POST",
-        body: JSON.stringify(data)
-    })
-    .then(() => {
+
+    // Apps Script exige no-cors; usamos um form POST via iframe oculto
+    // para contornar o bloqueio de CORS e ainda registrar os dados
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = scriptUrl;
+    form.target = "hidden_iframe";
+    form.style.display = "none";
+
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "payload";
+    input.value = JSON.stringify(data);
+    form.appendChild(input);
+
+    // Garante que o iframe existe
+    let iframe = document.getElementById("hidden_iframe");
+    if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.name = "hidden_iframe";
+        iframe.id = "hidden_iframe";
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    // Como no-cors não retorna resposta legível, assume sucesso após envio
+    setTimeout(() => {
         showResult("✅ Sucesso! Suas respostas foram registradas.", "success");
-    })
-    .catch(error => {
-        console.error("Erro:", error);
-        showResult("❌ Erro ao enviar. Tente novamente.", "error");
-    });
+    }, 1200);
 }
 </script>
 </body>
