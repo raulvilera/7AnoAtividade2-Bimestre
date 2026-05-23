@@ -62,14 +62,14 @@
             letter-spacing: 0.5px;
         }
 
-        /* ── STUDENT INFO: 4 colunas ── */
+        /* ── STUDENT INFO: 4 colunas compactas ── */
         .student-info {
             display: grid;
-            grid-template-columns: 2fr 0.7fr 0.7fr 1fr;
-            gap: 14px;
+            grid-template-columns: 3fr 0.5fr 0.7fr 0.8fr;
+            gap: 10px;
             margin-bottom: 30px;
             background: rgba(255,255,255,0.1);
-            padding: 20px;
+            padding: 16px;
             border-radius: 10px;
             backdrop-filter: blur(10px);
         }
@@ -89,12 +89,12 @@
         }
 
         .info-field {
-            padding: 12px;
+            padding: 8px 10px;
             border: 2px solid white;
             border-radius: 8px;
             background: rgba(255,255,255,0.2);
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
         }
 
@@ -216,18 +216,18 @@
             accent-color: #667eea;
         }
 
-        /* Alternating selection colors: verde e azul */
-        .option.selected-green {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            border-color: #27ae60;
+        /* Alternância visual verde↔azul na opção selecionada */
+        @keyframes toggleColor {
+            0%, 49%  { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); border-color: #27ae60; }
+            50%, 100%{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #667eea; }
         }
 
-        .option.selected-blue {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .option.selected {
             color: white;
-            border-color: #667eea;
+            animation: toggleColor 1.4s ease-in-out infinite;
         }
+
+        .option.selected label { color: white; }
 
         .option label {
             cursor: pointer;
@@ -639,14 +639,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const gradeField = document.getElementById("studentGrade");
     const numberField = document.getElementById("studentNumber");
 
-    // Popular dropdown com número + nome
+    // Popular dropdown — apenas nome no texto, número fica no campo próprio
     Object.entries(students).forEach(([grade, list]) => {
         const group = document.createElement("optgroup");
         group.label = grade;
         list.forEach(({ num, name }) => {
             const option = document.createElement("option");
             option.value = `${grade}|${name}|${num}`;
-            option.textContent = `${num} – ${name}`;
+            option.textContent = name;          // só o nome
             group.appendChild(option);
         });
         select.appendChild(group);
@@ -708,9 +708,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const optionsDiv = document.createElement("div");
             optionsDiv.className = "options";
 
-            // Track alternation: green first, then blue
-            let useGreen = true;
-
             q.options.forEach((optText, idx) => {
                 const optionDiv = document.createElement("div");
                 optionDiv.className = "option";
@@ -721,13 +718,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const radio = optionDiv.querySelector("input");
                 radio.addEventListener("change", () => {
-                    // Remove any selected class from siblings
-                    optionsDiv.querySelectorAll(".option").forEach(o => {
-                        o.classList.remove("selected-green", "selected-blue");
-                    });
-                    // Toggle between green and blue each click
-                    optionDiv.classList.add(useGreen ? "selected-green" : "selected-blue");
-                    useGreen = !useGreen;
+                    // Remove selected de todos e aplica só na opção clicada
+                    optionsDiv.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                    optionDiv.classList.add("selected");
                 });
 
                 optionsDiv.appendChild(optionDiv);
@@ -790,9 +783,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("clearBtn").addEventListener("click", () => {
         document.querySelectorAll("input[type='radio']").forEach(r => r.checked = false);
         document.querySelectorAll("textarea").forEach(t => t.value = "");
-        document.querySelectorAll(".option").forEach(o => {
-            o.classList.remove("selected-green", "selected-blue");
-        });
+        document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
         document.getElementById("resultMessage").style.display = "none";
     });
 
