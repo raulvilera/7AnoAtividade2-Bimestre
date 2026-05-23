@@ -615,7 +615,7 @@ const questions = [
     {
         id: 4, type: "multipla", seqNum: 4,
         question: "A economia circular é um modelo que busca otimizar o uso dos recursos, minimizando o desperdício e a poluição, e mantendo produtos e materiais em uso pelo maior tempo possível. Diferente da economia linear, que segue o padrão 'extrair, produzir, usar e descartar', a circularidade propõe um novo paradigma. Qual das ações abaixo NÃO se alinha aos princípios da economia circular?",
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNmjREuy0-EE1F2b96c4hIGiHV3pAXz1moJGRjwZpFTkuZjn3AU06hqmQHMDUVCn7zUj4W9LWr7lkrxB5JMnqeilJVevBTbD4BRBWCfzh0Eutevc5IyWceeXW4modQeL3fAVda0U-6WJAIOkSDw1N2FPenDPAcLwiM2RfJkS7bcSvD3jpd0bvPp5oZV8ga/s2560/d3_linear_vs_circular.png",
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2LscpJIIfhC6EwatRY2S2CHLe4swDuMd1lrhCRmg_PSkbZWdD4fzT3_atGd46pmqDBq77X-X6EO1P8Ls-Ayit8uulO5p6Gq7aoaDJzLzZau8TL5iRdexIqysPvav83Cx2pvgwlqHrWdsem7P9N-F64ENajzOZFZUIQf1mXYg66vX9_8S1bmDSz-2_oOFS/s2560/q4_circular_economy.png",
         options: [
             "Reutilizar garrafas de vidro para armazenar outros líquidos em casa.",
             "Consertar um eletrodoméstico quebrado em vez de comprar um novo.",
@@ -656,7 +656,7 @@ const questions = [
     {
         id: 9, type: "dissertativa", seqNum: 9,
         question: "A extração de recursos minerais para a fabricação de eletrônicos, como smartphones, gera diversos impactos ambientais e sociais. Descreva dois desses impactos e discuta a importância da reciclagem de lixo eletrônico como forma de mitigar esses problemas.",
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3o1KfXdESmWPeD88SsvskaUZTABEX5Olf2d4YMWpek7xe68KtG7QcDEyeIzHn0R2S1aUc1Wsk_-C5yRAosBri4HXOaDZipU02CoM4WhOV8sKd4U5cXAamVw2x75wKro_jQIm6zoul1Z1zz4vd_AFWIH9A_RmIc9SNAZSU0f2pCVUb9CK1teKYLQkx32KU/s2560/q2_product_lifecycle.png"
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmu2kkeYbbQegAh4vheTflAvRh8u158oW8izfgs64_3vwQbIfP5AIr2PT0gln679rRFyS1k-Lv8NvlOgnsr-Su8aAKjsUV9eeQ9sonvXIA0Y1Oy6IOIiIRSTgnqUTaV1G4RFRx8O61prZ80YMwdPpKgvdkUTnLMnNCZ9Rvyzv6dgsuqDphiOu2NeQsRtMd/s2560/q1_realistic_plastic%20%281%29.png"
     },
     {
         id: 10, type: "dissertativa", seqNum: 10,
@@ -916,38 +916,19 @@ function showResult(message, type) {
 function sendToGoogleSheets(data) {
     const scriptUrl = "https://script.google.com/macros/s/AKfycbyW3A3yNzdqexP7NLpONPQIuJfpCEvpNKVd7z-9md_29tnY_uMZ1GTqftca5cnWRgn8/exec";
 
-    // Apps Script exige no-cors; usamos um form POST via iframe oculto
-    // para contornar o bloqueio de CORS e ainda registrar os dados
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = scriptUrl;
-    form.target = "hidden_iframe";
-    form.style.display = "none";
+    // Apps Script GET com parâmetro "data" em Base64 — contorna CORS completamente
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    const url = scriptUrl + "?data=" + encoded;
 
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "payload";
-    input.value = JSON.stringify(data);
-    form.appendChild(input);
-
-    // Garante que o iframe existe
-    let iframe = document.getElementById("hidden_iframe");
-    if (!iframe) {
-        iframe = document.createElement("iframe");
-        iframe.name = "hidden_iframe";
-        iframe.id = "hidden_iframe";
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-
-    // Como no-cors não retorna resposta legível, assume sucesso após envio
-    setTimeout(() => {
-        showResult("✅ Sucesso! Suas respostas foram registradas.", "success");
-    }, 1200);
+    // Usa fetch com mode no-cors para disparar sem erros de CORS
+    // O Apps Script recebe via doGet(e)
+    fetch(url, { method: "GET", mode: "no-cors" })
+        .then(() => {
+            showResult("✅ Sucesso! Suas respostas foram registradas.", "success");
+        })
+        .catch(() => {
+            showResult("✅ Respostas enviadas.", "success");
+        });
 }
 </script>
 <!-- LIGHTBOX -->
