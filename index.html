@@ -202,7 +202,60 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             display: block;
+            cursor: zoom-in;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
+        .question-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* ── LIGHTBOX ── */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.2s ease;
+        }
+        #lightbox.active { display: flex; }
+        @keyframes lbFadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        #lightbox img {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            animation: lbZoomIn 0.25s cubic-bezier(.175,.885,.32,1.275);
+            cursor: zoom-out;
+        }
+        @keyframes lbZoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+        #lightbox-close {
+            position: fixed;
+            top: 18px;
+            right: 22px;
+            color: white;
+            font-size: 36px;
+            font-weight: 300;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s, transform 0.2s;
+            user-select: none;
+        }
+        #lightbox-close:hover { opacity: 1; transform: rotate(90deg); }
 
         /* ── OPTIONS ── */
         .options { margin-top: 20px; }
@@ -562,7 +615,7 @@ const questions = [
     {
         id: 4, type: "multipla", seqNum: 4,
         question: "A economia circular é um modelo que busca otimizar o uso dos recursos, minimizando o desperdício e a poluição, e mantendo produtos e materiais em uso pelo maior tempo possível. Diferente da economia linear, que segue o padrão 'extrair, produzir, usar e descartar', a circularidade propõe um novo paradigma. Qual das ações abaixo NÃO se alinha aos princípios da economia circular?",
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqhk0OgccPN1A3Vq_Wy8y6HiPojV0gBpuXwKcOF4s926WNIRC4Fm6qxlCYZPGk7eA1Cdyi-0KjEJ4bsTr_-sRorqs0HloHrubY9QbzKEyi6HH1i-vPQgBCvSg0rF4SzkxTd-6qiGXsyI0fgW1inqS6BdKISrCq8MXvfH6fRZireDlFsheBEhOpu9cxlB8c/s2560/q3_realistic_ewaste.png",
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2LscpJIIfhC6EwatRY2S2CHLe4swDuMd1lrhCRmg_PSkbZWdD4fzT3_atGd46pmqDBq77X-X6EO1P8Ls-Ayit8uulO5p6Gq7aoaDJzLzZau8TL5iRdexIqysPvav83Cx2pvgwlqHrWdsem7P9N-F64ENajzOZFZUIQf1mXYg66vX9_8S1bmDSz-2_oOFS/s2560/q4_circular_economy.png",
         options: [
             "Reutilizar garrafas de vidro para armazenar outros líquidos em casa.",
             "Consertar um eletrodoméstico quebrado em vez de comprar um novo.",
@@ -593,7 +646,7 @@ const questions = [
     {
         id: 7, type: "dissertativa", seqNum: 7,
         question: "Explique o conceito de 'obsolescência programada' e como essa prática impacta negativamente o meio ambiente e a sustentabilidade. Cite um exemplo de produto que frequentemente sofre com a obsolescência programada e justifique sua escolha.",
-        image: null
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqhk0OgccPN1A3Vq_Wy8y6HiPojV0gBpuXwKcOF4s926WNIRC4Fm6qxlCYZPGk7eA1Cdyi-0KjEJ4bsTr_-sRorqs0HloHrubY9QbzKEyi6HH1i-vPQgBCvSg0rF4SzkxTd-6qiGXsyI0fgW1inqS6BdKISrCq8MXvfH6fRZireDlFsheBEhOpu9cxlB8c/s2560/q3_realistic_ewaste.png"
     },
     {
         id: 8, type: "dissertativa", seqNum: 8,
@@ -603,7 +656,7 @@ const questions = [
     {
         id: 9, type: "dissertativa", seqNum: 9,
         question: "A extração de recursos minerais para a fabricação de eletrônicos, como smartphones, gera diversos impactos ambientais e sociais. Descreva dois desses impactos e discuta a importância da reciclagem de lixo eletrônico como forma de mitigar esses problemas.",
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3o1KfXdESmWPeD88SsvskaUZTABEX5Olf2d4YMWpek7xe68KtG7QcDEyeIzHn0R2S1aUc1Wsk_-C5yRAosBri4HXOaDZipU02CoM4WhOV8sKd4U5cXAamVw2x75wKro_jQIm6zoul1Z1zz4vd_AFWIH9A_RmIc9SNAZSU0f2pCVUb9CK1teKYLQkx32KU/s2560/q2_product_lifecycle.png"
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmu2kkeYbbQegAh4vheTflAvRh8u158oW8izfgs64_3vwQbIfP5AIr2PT0gln679rRFyS1k-Lv8NvlOgnsr-Su8aAKjsUV9eeQ9sonvXIA0Y1Oy6IOIiIRSTgnqUTaV1G4RFRx8O61prZ80YMwdPpKgvdkUTnLMnNCZ9Rvyzv6dgsuqDphiOu2NeQsRtMd/s2560/q1_realistic_plastic%20%281%29.png"
     },
     {
         id: 10, type: "dissertativa", seqNum: 10,
@@ -896,6 +949,46 @@ function sendToGoogleSheets(data) {
         showResult("✅ Sucesso! Suas respostas foram registradas.", "success");
     }, 1200);
 }
+</script>
+<!-- LIGHTBOX -->
+<div id="lightbox">
+    <span id="lightbox-close" title="Fechar">&#x2715;</span>
+    <img id="lightbox-img" src="" alt="Imagem ampliada">
+</div>
+
+<script>
+(function() {
+    const lb     = document.getElementById("lightbox");
+    const lbImg  = document.getElementById("lightbox-img");
+    const lbClose= document.getElementById("lightbox-close");
+
+    function openLightbox(src) {
+        lbImg.src = src;
+        lb.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        lb.classList.remove("active");
+        document.body.style.overflow = "";
+        setTimeout(() => { lbImg.src = ""; }, 300);
+    }
+
+    // Delegate: qualquer question-image clicada abre o lightbox
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("question-image")) {
+            openLightbox(e.target.src);
+        }
+    });
+
+    lb.addEventListener("click", (e) => {
+        if (e.target === lb || e.target === lbClose) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+    });
+})();
 </script>
 </body>
 </html>
