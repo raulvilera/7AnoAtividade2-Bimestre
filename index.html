@@ -51,15 +51,15 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px 30px;
-            text-align: center;
+            padding: 28px 30px 36px;
         }
 
         .school-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
             letter-spacing: 0.5px;
+            text-align: left;
         }
 
         /* ── STUDENT INFO ── */
@@ -77,10 +77,10 @@
         /* linha 1: só o nome */
         .student-info-row1 { width: 100%; }
 
-        /* linha 2: nº chamada | série | data — 3 colunas compactas */
+        /* linha 2: nº chamada | série | data */
         .student-info-row2 {
             display: grid;
-            grid-template-columns: 80px 1fr 110px;
+            grid-template-columns: 80px auto 110px;
             gap: 10px;
         }
 
@@ -113,10 +113,11 @@
         .info-field option { color: #333; background: white; }
 
         .activity-title {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            margin-top: 20px;
+            margin-top: 18px;
             letter-spacing: 0.5px;
+            text-align: center;
         }
 
         .content { padding: 40px 30px; }
@@ -857,7 +858,7 @@ function showResult(message, type) {
 
 function sendToGoogleSheets(data) {
     // Substitua pela URL do seu Apps Script publicado
-    const scriptUrl = "SEU_URL_DE_DEPLOY_DO_APPS_SCRIPT_AQUI";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbyW3A3yNzdqexP7NLpONPQIuJfpCEvpNKVd7z-9md_29tnY_uMZ1GTqftca5cnWRgn8/exec";
     fetch(scriptUrl, {
         method: "POST",
         body: JSON.stringify(data)
