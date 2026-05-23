@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Ciências - 7º Ano - 2º Bimestre</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .school-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .student-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .info-field {
+            padding: 12px;
+            border: 2px solid white;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .info-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .info-field option {
+            color: #333;
+            background: white;
+        }
+
+        .activity-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 40px 0 25px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            margin-right: 12px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-top: 4px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .option.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .dissertativa-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #764ba2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .dissertativa-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #764ba2;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .dissertativa-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .response-field {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .response-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #submitBtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        #submitBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        #submitBtn:active {
+            transform: translateY(0);
+        }
+
+        #clearBtn {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        #clearBtn:hover {
+            background: #e0e0e0;
+            border-color: #ccc;
+        }
+
+        .result-message {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .result-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .result-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .student-info {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-title {
+                font-size: 22px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
+        <div class="student-info">
+            <div class="info-group">
+                <label class="info-label">Nome</label>
+                <select id="studentName" class="info-field">
+                    <option value="">Selecione seu nome</option>
+                </select>
+            </div>
+            <div class="info-group">
+                <label class="info-label">Série</label>
+                <input type="text" id="studentGrade" class="info-field" readonly>
+            </div>
+            <div class="info-group">
+                <label class="info-label">Data</label>
+                <input type="text" id="currentDate" class="info-field" readonly>
+            </div>
+        </div>
+        <div class="activity-title">ATIVIDADE DE CIÊNCIAS (2º BIMESTRE)</div>
+    </div>
+
+    <div class="content">
+        <div id="questionsContainer"></div>
+
+        <div class="buttons">
+            <button id="submitBtn">Enviar Respostas</button>
+            <button id="clearBtn">Limpar Respostas</button>
+        </div>
+
+        <div id="resultMessage" class="result-message"></div>
+    </div>
+</div>
+
+<script>
+    // Lista de alunos por série
+    const students = {
+        "7º Ano A": [
+            "ÁGATHA CAMPOS DE SOUSA", "ALBERT BARROS CARDOSO", "ALEXIA LOHANA COSTA DE OLIVEIRA",
+            "ANA CAROLINA GONCALVES NASCIMENTO DE LIMA", "ARIANE DIAS SOARES", "BRYAN OLLIVER TEIXEIRA RODRIGUES DE SALLES",
+            "CRYSTHOPHER PIERRE CAVALCANTE RUBIRA", "EMANUELLA RIBEIRO MAFRA", "FHELIPE OLIVEIRA CAETANO PEREIRA",
+            "GABRIEL CHAVES RAMOS", "GEOVANNA NEVILE DIAS", "HENRIQUE VIANA LEITE",
+            "ISABELLA DE SOUZA SILVA", "ISABELLY SOPHIA VIEIRA LIMA", "ISABELLY VITORIA DA SILVA MOREIRA",
+            "JÁDINA COELHO ABADE", "JEAN PAULO MARTINS DA SILVA", "KAUANY NIKELY CARDOSO DA SILVA",
+            "KETTELLEN VITORIA DA SILVA CARDOSO", "LUAN CAIO LOPES DE LIMA", "LUIZ HENRIQUE DA SILVA FRANÇA",
+            "MAYSA CORREIA DE OLIVEIRA", "MAYSA FERNANDA DE OLIVEIRA CARVALHO", "OTAVIO DO NASCIMENTO CONCEICAO",
+            "PEDRO BRANDAO SANTOS", "RAFAELLA VICTORIA ABREU DOS ANJOS", "RAPHAEL CORREA AZEVEDO",
+            "RYAN FREITAS FERREIRA", "SAYMON GABRIEL DE JESUS BARBOSA", "YASMIM MANGILI SILVA",
+            "YASMIM NOVAES SOARES", "YASMIN CRISTINA PEREIRA CORREIA", "ENZO MANGILI SILVA"
+        ],
+        "7º Ano B": [
+            "ABRAAO JUNIOR SOUSA BATISTA", "ALEX ROBERTO BARBOZA DE CARVALHO", "AMANDA MARTINS SANTOS DA SILVA",
+            "ANA CECILIA LEAO DE ALMEIDA", "BEATRIZ NASCIMENTO ALVES", "BERNARDO BENJAMIN DE SOUSA MOREIRA",
+            "BRUNO HENRIQUE SERAFIM", "DANIEL ROCHA COSTA", "DAVY MIGUEL BENVINDO CORREIA",
+            "ERICK ROBERTO ESTEVAM OLIVEIRA", "FELIPE WENDEL GONÇALVES DOS SANTOS", "FERNANDA MARCOS SOARES",
+            "GUILHERME CAMARGO MOTA", "GUILHERME DE BRITO ROCHA", "HEDERSON FERNANDO FELIX DE SOUZA",
+            "JENIFER MEDEIROS ALVES", "JHULIA FERNANDA MENDES", "KENNETH BARTHOLOMEW KOSH IV",
+            "LARYSSA XAVIER DE SOUZA", "LOHANA GABRIELY GONCALVES DA SILVA", "MANOELLA FREITAS SOARES",
+            "MATHEUS LOPES FERREIRA", "MAYRA CORREIA DE OLIVEIRA", "MILENA KAROLINE ALVES COSTA",
+            "RUAM MACOLLY DE ALMEIDA SANTOS", "SOPHIA EVANGELISTA COBRA DE CARVALHO", "VITOR HUGO GUERREIRO RODRIGUES"
+        ]
+    };
+
+    // Questões
+    const questions = [
+        {
+            id: 1,
+            type: "multipla",
+            question: "O Brasil é reconhecido como o 4º maior produtor de lixo plástico do mundo, com uma taxa de reciclagem de apenas 1,2%. Esse cenário reflete um modelo de produção e consumo que gera grande impacto ambiental. Considerando o ciclo de vida dos produtos e a problemática do lixo plástico, qual das alternativas apresenta uma ação que contribui diretamente para a redução desse impacto?",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmu2kkeYbbQegAh4vheTflAvRh8u158oW8izfgs64_3vwQbIfP5AIr2PT0gln679rRFyS1k-Lv8NvlOgnsr-Su8aAKjsUV9eeQ9sonvXIA0Y1Oy6IOIiIRSTgnqUTaV1G4RFRx8O61prZ80YMwdPpKgvdkUTnLMnNCZ9Rvyzv6dgsuqDphiOu2NeQsRtMd/s2560/q1_realistic_plastic%20%281%29.png",
+            options: [
+                "Aumentar a produção de embalagens plásticas descartáveis para atender à demanda do mercado consumidor.",
+                "Incentivar o descarte de produtos plásticos em aterros sanitários, pois é a forma mais eficiente de gerenciamento.",
+                "Promover o consumo consciente, a reutilização de embalagens e a escolha por produtos com menor quantidade de plástico ou embalagens retornáveis.",
+                "Exportar o lixo plástico para outros países, transferindo a responsabilidade ambiental para outras nações.",
+                "Ignorar a problemática do lixo plástico, focando apenas na produção de novos materiais."
+            ],
+            correct: 2
+        },
+        {
+            id: 2,
+            type: "multipla",
+            question: "A imagem do ciclo de vida dos produtos, que vai dos recursos naturais ao descarte, ilustra a jornada de um item que consumimos. Em um modelo de economia linear, essa jornada frequentemente culmina no acúmulo de resíduos. Qual das etapas do ciclo de vida de um smartphone, por exemplo, representa o maior consumo de recursos minerais e energéticos, e qual seria uma alternativa mais sustentável para essa etapa?",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3o1KfXdESmWPeD88SsvskaUZTABEX5Olf2d4YMWpek7xe68KtG7QcDEyeIzHn0R2S1aUc1Wsk_-C5yRAosBri4HXOaDZipU02CoM4WhOV8sKd4U5cXAamVw2x75wKro_jQIm6zoul1Z1zz4vd_AFWIH9A_RmIc9SNAZSU0f2pCVUb9CK1teKYLQkx32KU/s2560/q2_product_lifecycle.png",
+            options: [
+                "Descarte, pois a incineração de eletrônicos libera grande quantidade de energia. A alternativa seria o descarte em lixões comuns.",
+                "Uso/Consumo, devido ao carregamento diário da bateria. A alternativa seria usar o aparelho até quebrar completamente e descartá-lo.",
+                "Matéria-Prima e Manufatura, pois envolvem a extração de minérios como níquel e chumbo, e a montagem em fábricas. A alternativa mais sustentável seria a reciclagem e o reuso de componentes.",
+                "Distribuição, pelo transporte global dos produtos. A alternativa seria produzir apenas localmente, sem exportação.",
+                "Recursos Naturais, pois a água utilizada na produção é o principal recurso. A alternativa seria usar água da chuva na fabricação."
+            ],
+            correct: 2
+        },
+        {
+            id: 3,
+            type: "multipla",
+            question: "A obsolescência programada é uma estratégia de mercado onde produtos são projetados para terem uma vida útil limitada, incentivando o consumo contínuo. Essa prática está diretamente ligada ao modelo de economia linear, que se opõe aos princípios da sustentabilidade. Qual das seguintes afirmações melhor descreve a relação entre obsolescência programada e sustentabilidade?",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcVQ16NP2Wp3SprcnyBmR7ofVI-sht6mI_we-A89bgTBzQamJu3Jao7En1uZrzEV5zj8M0PHYZHf5mjRcipze11mw0GC89PKR0M7GB38nxrSwbm9hNHtlcPjyZgtCpKEpM-IY_XprrfiV463NF_gaZAk2ppvO8RDrAPykmlin2mL59Vx0zvGrRUIzZEcv4/s2560/q3_obsolescence.png",
+            options: [
+                "A obsolescência programada é uma prática sustentável, pois estimula a inovação e a criação de produtos mais eficientes.",
+                "A obsolescência programada contribui para a sustentabilidade ao garantir que os recursos naturais sejam constantemente explorados, gerando empregos.",
+                "A obsolescência programada é prejudicial à sustentabilidade, pois aumenta a geração de resíduos, esgota recursos naturais e intensifica a poluição, indo contra a ideia de um ciclo de vida prolongado dos produtos.",
+                "A obsolescência programada não tem relação com a sustentabilidade, pois se trata apenas de uma estratégia comercial que não afeta o meio ambiente.",
+                "A obsolescência programada é uma solução para o problema do lixo, pois os produtos são descartados rapidamente, liberando espaço."
+            ],
+            correct: 2
+        },
+        {
+            id: 4,
+            type: "multipla",
+            question: "A economia circular é um modelo que busca otimizar o uso dos recursos, minimizando o desperdício e a poluição, e mantendo produtos e materiais em uso pelo maior tempo possível. Diferente da economia linear, que segue o padrão 'extrair, produzir, usar e descartar', a circularidade propõe um novo paradigma. Qual das ações abaixo NÃO se alinha aos princípios da economia circular?",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2LscpJIIfhC6EwatRY2S2CHLe4swDuMd1lrhCRmg_PSkbZWdD4fzT3_atGd46pmqDBq77X-X6EO1P8Ls-Ayit8uulO5p6Gq7aoaDJzLzZau8TL5iRdexIqysPvav83Cx2pvgwlqHrWdsem7P9N-F64ENajzOZFZUIQf1mXYg66vX9_8S1bmDSz-2_oOFS/s320/q4_circular_economy.png",
+            options: [
+                "Reutilizar garrafas de vidro para armazenar outros líquidos em casa.",
+                "Consertar um eletrodoméstico quebrado em vez de comprar um novo.",
+                "Comprar roupas de segunda mão em brechós.",
+                "Descartar eletrônicos antigos em lixões comuns após a compra de um modelo mais recente.",
+                "Transformar pneus velhos em vasos de plantas ou objetos de decoração."
+            ],
+            correct: 3
+        },
+        {
+            id: 5,
+            type: "multipla",
+            question: "A poluição dos oceanos por plásticos é um problema global crescente, afetando a vida marinha e os ecossistemas costeiros. Microplásticos, fragmentos minúsculos de plástico, são ingeridos por animais e podem entrar na cadeia alimentar, chegando até os seres humanos. Considerando a importância da sustentabilidade marinha, qual medida seria mais eficaz para combater a poluição por plásticos nos oceanos a longo prazo?",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhloi5G63XV9-YVaBsN35j9PAS9sXNQFIp-kMrhssP6GEoPxicflSBfGjGGJkrq9AhyVPLwWeGtySxf_FvSRhZTcycajVS2rF14Fwu9GSHdIFGg_E1IN7PjxqUg8V5Z8bbG8G1BpYG3jHEetFKO9Hu1VoGP10JHFoFDeBeKHQBGmN0xLp3MVsLuH55ia6pE/s2560/q1_plastic_waste.png",
+            options: [
+                "Realizar grandes campanhas de limpeza de praias uma vez por ano, recolhendo o lixo visível.",
+                "Proibir a pesca em áreas costeiras para proteger a vida marinha da ingestão de plásticos.",
+                "Desenvolver plásticos que se degradam rapidamente em ambientes marinhos, sem deixar resíduos tóxicos.",
+                "Implementar políticas globais que reduzam drasticamente a produção e o consumo de plásticos descartáveis, promovendo alternativas sustentáveis e sistemas de reuso.",
+                "Aumentar a produção de plásticos biodegradáveis, que se decompõem em poucos anos no oceano."
+            ],
+            correct: 3
+        },
+        {
+            id: "d1",
+            type: "dissertativa",
+            question: "Apesar de ser o 4º maior produtor de lixo plástico do mundo, o Brasil recicla apenas 1,2% desse material. Discorra sobre as consequências ambientais e sociais dessa baixa taxa de reciclagem de plástico no país, e proponha duas soluções que poderiam ser implementadas para melhorar esse cenário.",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2LscpJIIfhC6EwatRY2S2CHLe4swDuMd1lrhCRmg_PSkbZWdD4fzT3_atGd46pmqDBq77X-X6EO1P8Ls-Ayit8uulO5p6Gq7aoaDJzLzZau8TL5iRdexIqysPvav83Cx2pvgwlqHrWdsem7P9N-F64ENajzOZFZUIQf1mXYg66vX9_8S1bmDSz-2_oOFS/s2560/q4_circular_economy.png"
+        },
+        {
+            id: "d2",
+            type: "dissertativa",
+            question: "Explique o conceito de 'obsolescência programada' e como essa prática impacta negativamente o meio ambiente e a sustentabilidade. Cite um exemplo de produto que frequentemente sofre com a obsolescência programada e justifique sua escolha.",
+            image: "/home/ubuntu/d2_electronic_waste.png"
+        },
+        {
+            id: "d3",
+            type: "dissertativa",
+            question: "Diferencie economia linear de economia circular, destacando os princípios de cada uma. Em seguida, explique como a transição de um modelo linear para um circular pode contribuir para a redução do impacto ambiental e para a promoção da sustentabilidade.",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhG9Sj_EEEEM9AcE94AU5h8tCN3rGI7met1X9qtfVeDENOLviXzsnLmhPuGFGirCnGu_5F3Nr4E2idS-NsBYvBHSvX7VVn-izD5L-oJbhSecgjQZib7Gcm5TSKgLYH_oNM0MyqCBBPPoXmA5yJYZ15wWV2uUfp7GpNHhaWjM5WLhffr2kKF1dcRgQqLQI4p/s2560/q3_obsolescence.png"
+        },
+        {
+            id: "d4",
+            type: "dissertativa",
+            question: "A extração de recursos minerais para a fabricação de eletrônicos, como smartphones, gera diversos impactos ambientais e sociais. Descreva dois desses impactos e discuta a importância da reciclagem de lixo eletrônico como forma de mitigar esses problemas.",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmu2kkeYbbQegAh4vheTflAvRh8u158oW8izfgs64_3vwQbIfP5AIr2PT0gln679rRFyS1k-Lv8NvlOgnsr-Su8aAKjsUV9eeQ9sonvXIA0Y1Oy6IOIiIRSTgnqUTaV1G4RFRx8O61prZ80YMwdPpKgvdkUTnLMnNCZ9Rvyzv6dgsuqDphiOu2NeQsRtMd/s2560/q1_realistic_plastic%20%281%29.png"
+        },
+        {
+            id: "d5",
+            type: "dissertativa",
+            question: "A poluição por microplásticos nos oceanos é uma preocupação crescente. Explique o que são microplásticos, como eles chegam aos oceanos e quais os riscos que representam para a vida marinha e para a saúde humana. Proponha uma medida individual e uma medida governamental para combater esse problema.",
+            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOPZU4VDU4nKxt6t2PZdS_L2knBW_KyxWBjVhyphenhyphenIZMrBLHevhR6eWhXvOTDii3ywGvs3xIs3tO1EKnyLWYEWmmSlyLCn7p_BibD9Hqd5OBGM8JGGbWf6xNJEypSZaMLYmARHXXlQ-xYFcjMp0uQYmnCLdMQNGXUCeiBL-_7kRlEWKVTbzklfVq3FwnHC1HI/s2560/d5_microplastics.png"
+        }
+    ];
+
+    // Gabarito
+    const correctAnswers = {
+        1: 2, 2: 2, 3: 2, 4: 3, 5: 3
+    };
+
+    // Inicialização
+    document.addEventListener("DOMContentLoaded", () => {
+        const now = new Date();
+        document.getElementById("currentDate").value = now.toLocaleDateString("pt-BR");
+
+        const select = document.getElementById("studentName");
+        const gradeField = document.getElementById("studentGrade");
+
+        // Popular dropdown de alunos
+        Object.entries(students).forEach(([grade, names]) => {
+            const group = document.createElement("optgroup");
+            group.label = grade;
+            names.forEach(name => {
+                const option = document.createElement("option");
+                option.value = `${grade}|${name}`;
+                option.textContent = name;
+                group.appendChild(option);
+            });
+            select.appendChild(group);
+        });
+
+        // Renderizar questões
+        const container = document.getElementById("questionsContainer");
+        let mcCount = 0;
+        let disCount = 0;
+
+        questions.forEach((q, idx) => {
+            if (q.type === "multipla") {
+                mcCount++;
+                if (mcCount === 1) {
+                    const title = document.createElement("div");
+                    title.className = "section-title";
+                    title.textContent = "Questões de Múltipla Escolha";
+                    container.appendChild(title);
+                }
+
+                const card = document.createElement("div");
+                card.className = "question-card";
+
+                const header = document.createElement("div");
+                header.innerHTML = `<span class="question-number">${mcCount}</span>`;
+                card.appendChild(header);
+
+                const text = document.createElement("div");
+                text.className = "question-text";
+                text.textContent = q.question;
+                card.appendChild(text);
+
+                if (q.image) {
+                    const img = document.createElement("img");
+                    img.src = q.image;
+                    img.className = "question-image";
+                    img.onerror = function() { this.style.display = "none"; };
+                    card.appendChild(img);
+                }
+
+                const optionsDiv = document.createElement("div");
+                optionsDiv.className = "options";
+
+                q.options.forEach((option, idx) => {
+                    const optionDiv = document.createElement("div");
+                    optionDiv.className = "option";
+                    optionDiv.innerHTML = `
+                        <input type="radio" name="q${q.id}" value="${idx}" id="q${q.id}_${idx}">
+                        <label for="q${q.id}_${idx}">${option}</label>
+                    `;
+                    optionDiv.addEventListener("change", () => {
+                        optionsDiv.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                        optionDiv.classList.add("selected");
+                    });
+                    optionsDiv.appendChild(optionDiv);
+                });
+
+                card.appendChild(optionsDiv);
+                container.appendChild(card);
+            } else {
+                disCount++;
+                if (disCount === 1) {
+                    const title = document.createElement("div");
+                    title.className = "section-title";
+                    title.textContent = "Questões Dissertativas";
+                    container.appendChild(title);
+                }
+
+                const card = document.createElement("div");
+                card.className = "dissertativa-card";
+
+                const label = document.createElement("div");
+                label.className = "dissertativa-label";
+                label.textContent = `Questão Dissertativa ${disCount}`;
+                card.appendChild(label);
+
+                const text = document.createElement("div");
+                text.className = "dissertativa-text";
+                text.innerHTML = `<span class="question-number">${disCount}</span> ${q.question}`;
+                card.appendChild(text);
+
+                if (q.image) {
+                    const img = document.createElement("img");
+                    img.src = q.image;
+                    img.className = "question-image";
+                    img.onerror = function() { this.style.display = "none"; };
+                    card.appendChild(img);
+                }
+
+                const textarea = document.createElement("textarea");
+                textarea.className = "response-field";
+                textarea.id = `d${disCount}`;
+                textarea.placeholder = "Escreva sua resposta aqui...";
+                card.appendChild(textarea);
+
+                container.appendChild(card);
+            }
+        });
+
+        // Eventos
+        select.addEventListener("change", () => {
+            if (select.value) {
+                const [grade] = select.value.split("|");
+                gradeField.value = grade;
+            }
+        });
+
+        document.getElementById("clearBtn").addEventListener("click", () => {
+            document.querySelectorAll("input[type='radio']").forEach(r => r.checked = false);
+            document.querySelectorAll("textarea").forEach(t => t.value = "");
+            document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+            document.getElementById("resultMessage").style.display = "none";
+        });
+
+        document.getElementById("submitBtn").addEventListener("click", () => {
+            const select = document.getElementById("studentName");
+            if (!select.value) {
+                showResult("Selecione seu nome.", "error");
+                return;
+            }
+
+            const [grade, name] = select.value.split("|");
+            const data = { studentName: name, studentGrade: grade, date: new Date().toLocaleString("pt-BR") };
+
+            // Validar múltipla escolha
+            let correct = 0;
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!selected) {
+                    showResult(`Responda todas as questões de múltipla escolha.`, "error");
+                    return;
+                }
+                const value = parseInt(selected.value);
+                data[`q${i}`] = String.fromCharCode(65 + value);
+                if (value === correctAnswers[i]) correct++;
+            }
+
+            // Validar dissertativas
+            for (let i = 1; i <= 5; i++) {
+                const textarea = document.getElementById(`d${i}`);
+                if (!textarea.value.trim()) {
+                    showResult(`Responda a questão dissertativa ${i}.`, "error");
+                    return;
+                }
+                data[`d${i}`] = textarea.value.trim();
+            }
+
+            data.correct = correct;
+            data.percentage = (correct / 5) * 100;
+
+            showResult(`Enviando respostas... Você acertou ${correct}/5 questões objetivas.`, "success");
+            sendToGoogleSheets(data);
+        });
+    });
+
+    function showResult(message, type) {
+        const resultDiv = document.getElementById("resultMessage");
+        resultDiv.textContent = message;
+        resultDiv.className = `result-message ${type}`;
+        resultDiv.style.display = "block";
+        resultDiv.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function sendToGoogleSheets(data) {
+        const scriptUrl = "SEU_URL_DE_DEPLOY_DO_APPS_SCRIPT_AQUI";
+        fetch(scriptUrl, {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            showResult("Sucesso! Suas respostas foram registradas.", "success");
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            showResult("Erro ao enviar. Tente novamente.", "error");
+        });
+    }
+</script>
+</body>
+</html>
