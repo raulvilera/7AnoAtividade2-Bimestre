@@ -915,7 +915,7 @@ function showResult(message, type) {
 }
 
 function sendToGoogleSheets(data) {
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbyW3A3yNzdqexP7NLpONPQIuJfpCEvpNKVd7z-9md_29tnY_uMZ1GTqftca5cnWRgn8/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbwKInnG24T5cVVoPxlcCErucO_PqcCJhFnwh54dp_EoHKDJ1yYkr2GKqtM61Cvj66ZW/exec";
 
     // Apps Script GET com parâmetro "data" em Base64 — contorna CORS completamente
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
