@@ -62,7 +62,6 @@
             text-align: left;
         }
 
-        /* ── STUDENT INFO ── */
         .student-info {
             display: flex;
             flex-direction: column;
@@ -74,10 +73,8 @@
             backdrop-filter: blur(10px);
         }
 
-        /* linha 1: só o nome */
         .student-info-row1 { width: 100%; }
 
-        /* linha 2: nº chamada | série | data */
         .student-info-row2 {
             display: flex;
             flex-direction: row;
@@ -137,7 +134,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* ── QUESTION CARD ── */
         .question-card {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 12px;
@@ -153,7 +149,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
-        /* Accent bar at BOTTOM of card */
         .question-card::after {
             content: '';
             display: block;
@@ -211,7 +206,6 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
-        /* ── LIGHTBOX ── */
         #lightbox {
             display: none;
             position: fixed;
@@ -257,7 +251,6 @@
         }
         #lightbox-close:hover { opacity: 1; transform: rotate(90deg); }
 
-        /* ── OPTIONS ── */
         .options { margin-top: 20px; }
 
         .option {
@@ -285,7 +278,6 @@
             accent-color: #667eea;
         }
 
-        /* Alternância visual verde↔azul na opção selecionada */
         @keyframes toggleColor {
             0%, 49%  { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); border-color: #27ae60; }
             50%, 100%{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #667eea; }
@@ -305,7 +297,6 @@
             line-height: 1.5;
         }
 
-        /* ── DISSERTATIVA CARD ── */
         .dissertativa-card {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 12px;
@@ -359,7 +350,6 @@
             box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
 
-        /* ── BUTTONS ── */
         .buttons {
             display: flex;
             gap: 15px;
@@ -392,6 +382,13 @@
             box-shadow: 0 8px 20px rgba(102,126,234,0.6);
         }
 
+        #submitBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         #clearBtn {
             background: #f0f0f0;
             color: #333;
@@ -400,7 +397,6 @@
 
         #clearBtn:hover { background: #e0e0e0; border-color: #ccc; }
 
-        /* ── RESULT MESSAGE ── */
         .result-message {
             margin-top: 30px;
             padding: 20px;
@@ -428,7 +424,6 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── MONITOR LOG ── */
         #monitorLog {
             font-size: 12px;
             color: #999;
@@ -449,14 +444,12 @@
 </head>
 <body>
 
-<!-- Monitor banner -->
 <div id="monitorBanner">⚠️ ALERTA: Troca de aba/tela detectada! Esta ocorrência foi registrada.</div>
 
 <div class="container">
     <div class="header">
         <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
         <div class="student-info">
-            <!-- Linha 1: nome completo -->
             <div class="student-info-row1">
                 <div class="info-group">
                     <label class="info-label">Nome</label>
@@ -465,7 +458,6 @@
                     </select>
                 </div>
             </div>
-            <!-- Linha 2: nº chamada | série | data -->
             <div class="student-info-row2">
                 <div class="info-group">
                     <label class="info-label">Nº Chamada</label>
@@ -499,9 +491,6 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  DADOS DOS ALUNOS  (número de chamada → nome)
-// ═══════════════════════════════════════════════════════
 const students = {
     "7º Ano A": [
         { num: 1,  name: "ÁGATHA CAMPOS DE SOUSA" },
@@ -569,9 +558,6 @@ const students = {
     ]
 };
 
-// ═══════════════════════════════════════════════════════
-//  QUESTÕES
-// ═══════════════════════════════════════════════════════
 const questions = [
     {
         id: 1, type: "multipla", seqNum: 1,
@@ -665,12 +651,12 @@ const questions = [
     }
 ];
 
-// Gabarito (0-indexed)
 const correctAnswers = { 1: 2, 2: 2, 3: 2, 4: 3, 5: 3 };
 
-// ═══════════════════════════════════════════════════════
-//  MONITOR DE TROCA DE ABA / TELA
-// ═══════════════════════════════════════════════════════
+// ── FLAG DE ENVIO ÚNICO ──
+let submitted = false;
+
+// ── MONITOR ──
 let switchCount = 0;
 const banner = document.getElementById("monitorBanner");
 const logDiv = document.getElementById("monitorLog");
@@ -692,16 +678,13 @@ window.addEventListener("blur", () => {
     if (document.visibilityState === "visible") recordSwitch("Janela em segundo plano");
 });
 
-// Detect split-screen / window resize to very small width
 window.addEventListener("resize", () => {
     if (window.outerWidth > 0 && window.innerWidth < window.outerWidth * 0.6) {
         recordSwitch("Divisão de tela");
     }
 });
 
-// ═══════════════════════════════════════════════════════
-//  INICIALIZAÇÃO
-// ═══════════════════════════════════════════════════════
+// ── INICIALIZAÇÃO ──
 document.addEventListener("DOMContentLoaded", () => {
     const now = new Date();
     document.getElementById("currentDate").value = now.toLocaleDateString("pt-BR");
@@ -710,20 +693,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const gradeField = document.getElementById("studentGrade");
     const numberField = document.getElementById("studentNumber");
 
-    // Popular dropdown — apenas nome no texto, número fica no campo próprio
     Object.entries(students).forEach(([grade, list]) => {
         const group = document.createElement("optgroup");
         group.label = grade;
         list.forEach(({ num, name }) => {
             const option = document.createElement("option");
             option.value = `${grade}|${name}|${num}`;
-            option.textContent = name;          // só o nome
+            option.textContent = name;
             group.appendChild(option);
         });
         select.appendChild(group);
     });
 
-    // Ao selecionar nome → preenche série e número
     select.addEventListener("change", () => {
         if (select.value) {
             const [grade, , num] = select.value.split("|");
@@ -735,7 +716,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ── Renderizar questões ──
     const container = document.getElementById("questionsContainer");
     let mcCount = 0;
     let disCount = 0;
@@ -789,7 +769,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const radio = optionDiv.querySelector("input");
                 radio.addEventListener("change", () => {
-                    // Remove selected de todos e aplica só na opção clicada
                     optionsDiv.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
                     optionDiv.classList.add("selected");
                 });
@@ -852,6 +831,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── Limpar ──
     document.getElementById("clearBtn").addEventListener("click", () => {
+        if (submitted) return; // bloqueia limpar após envio também
         document.querySelectorAll("input[type='radio']").forEach(r => r.checked = false);
         document.querySelectorAll("textarea").forEach(t => t.value = "");
         document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
@@ -860,6 +840,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ── Enviar ──
     document.getElementById("submitBtn").addEventListener("click", () => {
+        // BLOQUEIO DE REENVIO
+        if (submitted) {
+            showResult("⚠️ Suas respostas já foram enviadas. Não é permitido enviar novamente.", "error");
+            return;
+        }
+
         if (!select.value) {
             showResult("Selecione seu nome.", "error");
             return;
@@ -874,7 +860,6 @@ document.addEventListener("DOMContentLoaded", () => {
             switchCount: switchCount
         };
 
-        // Validar objetivas
         let correct = 0;
         for (let i = 1; i <= 5; i++) {
             const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -887,7 +872,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (value === correctAnswers[i]) correct++;
         }
 
-        // Validar dissertativas
         for (let i = 1; i <= 5; i++) {
             const textarea = document.getElementById(`d${i}`);
             if (!textarea.value.trim()) {
@@ -899,9 +883,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         data.correct = correct;
         data.percentage = (correct / 5) * 100;
+        data.sheetName = "Atividade do 7ºAno";
 
         showResult(`Enviando respostas... Você acertou ${correct}/5 questões objetivas.`, "success");
-        data.sheetName = "Atividade do 7ºAno";  // aba de destino na planilha
         sendToGoogleSheets(data);
     });
 });
@@ -914,24 +898,46 @@ function showResult(message, type) {
     resultDiv.scrollIntoView({ behavior: "smooth" });
 }
 
+function lockSubmitButton() {
+    submitted = true;
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "Respostas Enviadas";
+
+    // Bloqueia também o select e todos os inputs/textareas
+    document.getElementById("studentName").disabled = true;
+    document.querySelectorAll("input[type='radio']").forEach(r => r.disabled = true);
+    document.querySelectorAll("textarea").forEach(t => {
+        t.disabled = true;
+        t.style.background = "#f5f5f5";
+        t.style.color = "#999";
+    });
+    document.querySelectorAll(".option").forEach(o => {
+        o.style.cursor = "default";
+        o.style.pointerEvents = "none";
+    });
+
+    // Oculta o botão Limpar após envio
+    document.getElementById("clearBtn").style.display = "none";
+}
+
 function sendToGoogleSheets(data) {
     const scriptUrl = "https://script.google.com/macros/s/AKfycbyERmYA0s2pKTrz47WrXoP52JVcfZL0pnJwyTwBdC_rpfzi5e3xx24pXfZTSUnAEuZB/exec";
-
-    // Apps Script GET com parâmetro "data" em Base64 — contorna CORS completamente
     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
     const url = scriptUrl + "?data=" + encoded;
 
-    // Usa fetch com mode no-cors para disparar sem erros de CORS
-    // O Apps Script recebe via doGet(e)
     fetch(url, { method: "GET", mode: "no-cors" })
         .then(() => {
-            showResult("✅ Sucesso! Suas respostas foram registradas.", "success");
+            lockSubmitButton();
+            showResult("✅ Sucesso! Suas respostas foram registradas. Esta atividade está encerrada.", "success");
         })
         .catch(() => {
-            showResult("✅ Respostas enviadas.", "success");
+            lockSubmitButton();
+            showResult("✅ Respostas enviadas. Esta atividade está encerrada.", "success");
         });
 }
 </script>
+
 <!-- LIGHTBOX -->
 <div id="lightbox">
     <span id="lightbox-close" title="Fechar">&#x2715;</span>
@@ -956,7 +962,6 @@ function sendToGoogleSheets(data) {
         setTimeout(() => { lbImg.src = ""; }, 300);
     }
 
-    // Delegate: qualquer question-image clicada abre o lightbox
     document.addEventListener("click", (e) => {
         if (e.target.classList.contains("question-image")) {
             openLightbox(e.target.src);
